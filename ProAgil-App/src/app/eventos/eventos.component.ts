@@ -6,6 +6,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { ToastrService } from 'ngx-toastr';
 defineLocale('pt-br', ptBrLocale);
 
 @Component({
@@ -31,6 +32,7 @@ export class EventosComponent implements OnInit {
              , private modalService: BsModalService
              , private fb: FormBuilder
              , private localeService: BsLocaleService
+             , private toastr: ToastrService
     ) {
       this.localeService.use('pt-br');
      }
@@ -170,6 +172,7 @@ export class EventosComponent implements OnInit {
       () => {
           template.hide();
           this.getEventos();
+          this.toastr.success('Hello world!', 'Toastr fun!');
         }, error => {
           console.log(error);
         }

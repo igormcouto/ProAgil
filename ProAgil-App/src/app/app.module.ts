@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { NavComponent } from './nav/nav.component';
+import { ToastrModule } from 'ngx-toastr';
 
 import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
 
@@ -40,6 +41,7 @@ registerLocaleData(localePt);
       BsDatepickerModule.forRoot(),
       BrowserAnimationsModule,
       ReactiveFormsModule,
+      ToastrModule.forRoot(),
    ],
    providers: [
       EventoService,
