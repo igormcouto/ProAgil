@@ -19,7 +19,7 @@ namespace ProAgil.API.Dto
         public string Tema { get; set; }
 
         [Required(ErrorMessage="O campo {0} é obrigatório")]
-        [Range(2,12000,ErrorMessage="O campo {0} deve conter entre 2 e 12000 pessoas.")]
+        [Range(2,1000000,ErrorMessage="O campo {0} deve conter entre 2 e 1000000 pessoas.")]
         public int QtdPessoas { get; set; }
         public string ImagemUrl { get; set; }
 

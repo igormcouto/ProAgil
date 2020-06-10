@@ -17,6 +17,11 @@ import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
 
 import { EventoService } from './_services/Evento.service';
 
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -37,7 +42,8 @@ import { EventoService } from './_services/Evento.service';
       ReactiveFormsModule,
    ],
    providers: [
-      EventoService
+      EventoService,
+      { provide: LOCALE_ID, useValue: 'pt-br' }
    ],
    bootstrap: [
       AppComponent

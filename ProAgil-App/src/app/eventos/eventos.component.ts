@@ -23,7 +23,7 @@ export class EventosComponent implements OnInit {
   mostrarImagem = false;
   modalRef: BsModalRef;
   registerForm: FormGroup;
-  modoSalvar = 'post';
+  modoSalvar: string;
   bodyDeletarEvento = '';
 
   constructor(
@@ -51,6 +51,11 @@ export class EventosComponent implements OnInit {
     set filtroListaLocal(value: string) {
       this.filtroListaLocalProp = value;
       this.eventosFiltrados = this.filtroListaLocal ? this.filtrarLocal(this.filtroListaLocal) : this.eventos;
+    }
+
+    openModalSave(template: any) {
+      this.modoSalvar = 'post';
+      this.openModal(template);
     }
 
     openModal(template: any) {
@@ -116,7 +121,7 @@ export class EventosComponent implements OnInit {
             console.log(error);
           }
         );
-      } else {
+      } else if (this.modoSalvar === 'put') {
         this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
         this.eventoService.putEvento(this.evento).subscribe(
           () => {
