@@ -58,7 +58,7 @@
       <td>{{ evento.id }}</td>
       <td>{{ evento.tema }}</td>
       <td>{{ evento.local }}</td>
-      <td>{{ evento.dataEvento | DateTimeFormatPipe}}</td>
+      <td>{{ evento.dataEvento }}</td>
       <td>{{ evento.qtdPessoas }}</td>
       <td>
         <div *ngIf="!evento.lotes.length">
@@ -200,7 +200,7 @@ aria-labelledby="dialog-sizes-name1"
   <input
   type="text"
   bsDatepicker
-  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm a' }"
+  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm' }"
   class="form-control"
   [ngClass]="{
     'is-invalid':

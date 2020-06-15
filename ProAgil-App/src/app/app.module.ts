@@ -19,9 +19,6 @@ import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
 import { EventoService } from './_services/Evento.service';
 
 import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-registerLocaleData(localePt);
 
 @NgModule({
    declarations: [
@@ -41,11 +38,15 @@ registerLocaleData(localePt);
       BsDatepickerModule.forRoot(),
       BrowserAnimationsModule,
       ReactiveFormsModule,
-      ToastrModule.forRoot(),
+      ToastrModule.forRoot({
+         timeOut: 3000,
+         positionClass: 'toast-bottom-center',
+         preventDuplicates: true,
+       }),
    ],
    providers: [
       EventoService,
-      { provide: LOCALE_ID, useValue: 'pt-br' }
+      { provide: LOCALE_ID, useValue: 'pt' }
    ],
    bootstrap: [
       AppComponent

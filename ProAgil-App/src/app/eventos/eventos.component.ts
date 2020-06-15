@@ -9,6 +9,10 @@ import { ptBrLocale } from 'ngx-bootstrap/locale';
 import { ToastrService } from 'ngx-toastr';
 defineLocale('pt-br', ptBrLocale);
 
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
+
 @Component({
   selector: 'app-eventos',
   templateUrl: './eventos.component.html',
@@ -119,8 +123,9 @@ export class EventosComponent implements OnInit {
           (novoEvento: Evento) => {
             template.hide();
             this.getEventos();
+            this.toastr.success(`Evento cadastrado com sucesso!`, 'Parabéns!');
           }, error => {
-            console.log(error);
+            this.toastr.error(`Erro ao cadastrar o evento ${this.evento.tema}: ${error}`, 'Ops!');
           }
         );
       } else if (this.modoSalvar === 'put') {
@@ -129,8 +134,9 @@ export class EventosComponent implements OnInit {
           () => {
             template.hide();
             this.getEventos();
+            this.toastr.success(`Evento editado com sucesso!`, 'Parabéns!');
           }, error => {
-            console.log(error);
+            this.toastr.error(`Erro ao cadastrar o evento ${this.evento.tema}: ${error}`, 'Ops!');
           }
         );
       }
@@ -145,7 +151,7 @@ export class EventosComponent implements OnInit {
      this.eventosFiltrados = this.eventos,
      console.log(_eventos);
     }, error => {
-      console.log(error);
+      this.toastr.error(`Erro ao tentar carregar os eventos: ${error}`, 'Ops!');
     });
   }
 
@@ -157,7 +163,7 @@ export class EventosComponent implements OnInit {
        this.eventosFiltrados = this.eventos,
        console.log(_eventos);
       }, error => {
-        console.log(error);
+        this.toastr.error(`Erro ao pesquisar o evento: ${error}`, 'Ops!');
       });
   }
 
@@ -172,9 +178,9 @@ export class EventosComponent implements OnInit {
       () => {
           template.hide();
           this.getEventos();
-          this.toastr.success('Hello world!', 'Toastr fun!');
+          this.toastr.success(`Evento deletado com sucesso!`, 'Parabéns!');
         }, error => {
-          console.log(error);
+          this.toastr.error(`Erro ao excluir o evento ${this.evento.tema}: ${error}`, 'Ops!');
         }
     );
   }
