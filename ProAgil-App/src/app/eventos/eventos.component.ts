@@ -21,6 +21,8 @@ registerLocaleData(localePt);
 export class EventosComponent implements OnInit {
 
   title = 'Eventos';
+  file: File;
+  titleFile: string;
   eventosFiltrados: Evento[];
   eventos: Evento[];
   evento: Evento;
@@ -31,6 +33,8 @@ export class EventosComponent implements OnInit {
   registerForm: FormGroup;
   modoSalvar: string;
   bodyDeletarEvento = '';
+  fileNameToUpdate: string;
+  dataAtual: string;
 
   constructor(
                private eventoService: EventoService
@@ -73,8 +77,11 @@ export class EventosComponent implements OnInit {
     openModalEdit(evento: Evento, template: any) {
       this.modoSalvar = 'put';
       this.openModal(template);
-      this.evento =  evento;
-      this.registerForm.patchValue(evento);
+      this.evento = Object.assign({},evento);
+      this.titleFile = this.evento.imagemUrl;
+      this.fileNameToUpdate = evento.imagemUrl.toString();
+      this.evento.imagemUrl = '';
+      this.registerForm.patchValue(this.evento);
     }
 
     novoEvento(template: any) {
@@ -116,10 +123,22 @@ export class EventosComponent implements OnInit {
     });
   }
 
+  onFileChange(event){
+
+    this.titleFile = event.srcElement.files[0].name;
+
+    if (event.target.files && event.target.files.length){
+        this.file = event.target.files;
+    }
+  }
+
   salvarAlteracao(template: any) {
     if (this.registerForm.valid) {
       if (this.modoSalvar === 'post') {
         this.evento = Object.assign({}, this.registerForm.value);
+
+        this.uploadImagem();
+
         this.eventoService.postEvento(this.evento).subscribe(
           (novoEvento: Evento) => {
             template.hide();
@@ -131,6 +150,9 @@ export class EventosComponent implements OnInit {
         );
       } else if (this.modoSalvar === 'put') {
         this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
+
+        this.uploadImagem();
+
         this.eventoService.putEvento(this.evento).subscribe(
           () => {
             template.hide();
@@ -141,6 +163,26 @@ export class EventosComponent implements OnInit {
           }
         );
       }
+    }
+  }
+
+  uploadImagem(){
+    if (this.modoSalvar === 'post') {
+        this.evento.imagemUrl = this.titleFile;
+        this.eventoService.postUpload(this.file, this.titleFile).subscribe(
+          () => {
+            this.dataAtual = new Date().getMilliseconds().toString();
+            this.getEventos();
+          }
+        );
+    } else {
+        this.evento.imagemUrl = this.fileNameToUpdate;
+        this.eventoService.postUpload(this.file, this.fileNameToUpdate).subscribe(
+          () => {
+            this.dataAtual = new Date().getMilliseconds().toString();
+            this.getEventos();
+          }
+        );
     }
   }
 
