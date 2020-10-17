@@ -24,6 +24,9 @@ import { DateTimeFormatPipePipe } from './_helps/DateTimeFormatPipe.pipe';
 import { EventoService } from './_services/Evento.service';
 
 import { LOCALE_ID } from '@angular/core';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegistrationComponent } from './user/registration/registration.component';
 
 @NgModule({
    declarations: [
@@ -34,7 +37,10 @@ import { LOCALE_ID } from '@angular/core';
       DashboardComponent,
       ContatosComponent,
       PalestrantesComponent,
-      TituloComponent
+      TituloComponent,
+      UserComponent,
+      LoginComponent,
+      RegistrationComponent
    ],
    imports: [
       BrowserModule,
