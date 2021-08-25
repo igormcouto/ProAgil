@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { User } from './../../_models/User';
+import { AuthService } from './../../_services/auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -10,9 +12,13 @@ import { ToastrService } from 'ngx-toastr';
 export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup;
+  user: User;
 
-  constructor(public fb: FormBuilder
-    , private  toastr: ToastrService) { }
+  constructor(private authService: AuthService
+             ,public fb: FormBuilder
+             ,private  toastr: ToastrService) { 
+
+    }
 
     ngOnInit() {
       this.validation();
@@ -25,7 +31,7 @@ export class RegistrationComponent implements OnInit {
         userName : ['', Validators.required],
         passwords: this.fb.group({
           password : ['', [Validators.required, Validators.minLength(4)]],
-          confirmPassword : ['', Validators.required]
+          confirmPassword : ['', [Validators.required, Validators.minLength(4)]]
         },
         {validator: this.compararSenhas})
       });
@@ -46,6 +52,11 @@ export class RegistrationComponent implements OnInit {
     }
 
     cadastrarUsuario(){
-      console.log();
+      if(this.registerForm.valid){
+                    //criando um objerto
+        this.user = Object.assign({passwords: this.registerForm.get('passwords.password').value}, 
+                                             this.registerForm.value);
+        
+      }
     }
   }

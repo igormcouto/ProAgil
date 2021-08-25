@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from './../../_models/User';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   titulo = 'Login';
-  model: any = {};
+  user: User;
 
   constructor(public router: Router) { }
 

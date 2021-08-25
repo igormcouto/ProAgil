@@ -45,20 +45,7 @@
       <div formGroupName="passwords">
         <div class="form-group">
           <label for="">Senha:</label>
-          <input class="form-control" type="password" formControlName="password"
-            [ngClass]="{ 'is-invalid': registerForm.get('passwords.password').errors &&
-                                       registerForm.get('passwords.password').touched}"
-            placeholder="Digite uma Senha" />
-            <div *ngIf="registerForm.get('passwords.password').hasError('minlength') &&
-            registerForm.get('passwords.password').touched"
-            class="invalid-feedback">
-            Deve conter no mínimo 4 caracters
-          </div>
-          <div *ngIf="registerForm.get('passwords.password').hasError('required') &&
-                      registerForm.get('passwords.password').touched"
-            class="invalid-feedback">
-            Senha é obrigatório.
-          </div>
+          <input class="form-control" type="password" formControlName="password" placeholder="Digite uma Senha" />
         </div>
         <div class="form-group">
           <label for="">Confirmar Senha:</label>
