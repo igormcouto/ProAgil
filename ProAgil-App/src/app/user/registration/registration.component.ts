@@ -30,33 +30,29 @@ export class RegistrationComponent implements OnInit {
         email : ['', [Validators.required, Validators.email]],
         userName : ['', Validators.required],
         passwords: this.fb.group({
-          password : ['', [Validators.required, Validators.minLength(4)]],
-          confirmPassword : ['', [Validators.required, Validators.minLength(4)]]
+          password : ['', [Validators.required, Validators.minLength(4), Validators.maxLength(32)]],
+          confirmPassword : ['', [Validators.required, Validators.minLength(4), Validators.maxLength(32)]]
         },
         {validator: this.compararSenhas})
       });
     }
 
-    compararSenhas(fb: FormGroup){
-      const confirmSenhaCtrl = fb.get('confirmPassword');
-      const passwordCtrl = fb.get('password');
+    cadastrarUsuario(){
+      if(this.registerForm.valid){
+        this.user = Object.assign({passwords: this.registerForm.get('passwords.password').value},this.registerForm.value); //criando um objeto
 
-      if(confirmSenhaCtrl.errors == null || 'mismatch' in confirmSenhaCtrl.errors){
-        if(passwordCtrl.value !== confirmSenhaCtrl.value){
-          passwordCtrl.setErrors({mismatch: true});
-        }
-        else{
-          confirmSenhaCtrl.setErrors(null);
-        }
+        console.log(this.user);
       }
     }
 
-    cadastrarUsuario(){
-      if(this.registerForm.valid){
-                    //criando um objerto
-        this.user = Object.assign({passwords: this.registerForm.get('passwords.password').value}, 
-                                             this.registerForm.value);
-        
+    compararSenhas(fb: FormGroup) {
+      const confirmSenhaCtrl = fb.get('confirmPassword');
+      if (confirmSenhaCtrl.errors == null || 'mismatch' in confirmSenhaCtrl.errors) {
+        if (fb.get('password').value !== confirmSenhaCtrl.value) {
+          confirmSenhaCtrl.setErrors({ mismatch: true });
+        } else {
+          confirmSenhaCtrl.setErrors(null);
+        }
       }
     }
   }

@@ -13,7 +13,7 @@ export class NavComponent implements OnInit {
   }
 
   loggedin(){
-    return true;
+    return false;
   }
 
 }
