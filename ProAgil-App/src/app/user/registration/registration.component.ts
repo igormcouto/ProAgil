@@ -48,8 +48,8 @@ export class RegistrationComponent implements OnInit {
 
         this.authService.register(this.user).subscribe(
           () => {
-            this.router.navigate(['/user/login']);
             this.toastr.success('Cadastro Realizado');
+            this.router.navigate(['/user/login']);
           },
           error => {
             console.log(error);
