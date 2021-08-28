@@ -54,16 +54,21 @@ export class RegistrationComponent implements OnInit {
           error => {
             console.log(error);
             const erro = error.error;
-            switch (erro) {
-              case 'DuplicateUserName':
-                this.toastr.error('Cadastro Duplicado!');
+            if(erro.length > 0 ){
+              erro.forEach(element => {
+                switch (element.code) {
+                  case 'DuplicateUserName':
+                this.toastr.error(`Cadastro Duplicado! O usuário ${this.registerForm.get('userName').value} já existe!`);
                 break;
-              default:
-                this.toastr.error(`Erro no Cadastro! Error: ${erro}`);
+                default:
+                this.toastr.error(`Erro no Cadastro! Error: ${element.code}`);
                 break;
-              }
-          }
-          
+                }
+              });
+            }else{
+              this.toastr.error(`Erro no Cadastro! Error: ${erro}`);
+            }
+          }          
         )
       }
     }
