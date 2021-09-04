@@ -10,7 +10,7 @@ import { AuthService } from './../_services/auth.service';
 })
 export class NavComponent implements OnInit {
 
-  constructor(private authService: AuthService
+  constructor(public authService: AuthService
              ,public router: Router
              ,private  toastr: ToastrService) { 
 
